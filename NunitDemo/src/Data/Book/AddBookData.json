@@ -1,0 +1,10 @@
+{
+  "AddBookWithInvalidData": {
+    "userId": "",
+    "collectionOfIsbns": [
+      {
+        "isbn": ""
+      }
+    ]
+  }
+}

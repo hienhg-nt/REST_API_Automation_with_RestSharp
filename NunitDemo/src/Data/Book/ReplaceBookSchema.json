@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "User id",
+      "examples": [
+        "string"
+      ]
+    },
+    "username": {
+      "type": "string",
+      "description": "Username",
+      "examples": [
+        "string"
+      ]
+    },
+    "books": {
+      "type": "array",
+      "description": "Books",
+      "items": {
+        "type": "object",
+        "properties": {
+          "isbn": {
+            "type": "string",
+            "description": "Isbn",
+            "examples": [
+              "string"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "examples": [
+              "string"
+            ]
+          },
+          "subTitle": {
+            "type": "string",
+            "description": "Sub title",
+            "examples": [
+              "string"
+            ]
+          },
+          "author": {
+            "type": "string",
+            "description": "Author",
+            "examples": [
+              "string"
+            ]
+          },
+          "publish_date": {
+            "type": "string",
+            "description": "Publish date",
+            "examples": [
+              "2026-04-02T05:07:37.819Z"
+            ]
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Publisher",
+            "examples": [
+              "string"
+            ]
+          },
+          "pages": {
+            "type": "integer",
+            "description": "Pages",
+            "examples": [
+              0
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "Description",
+            "examples": [
+              "string"
+            ]
+          },
+          "website": {
+            "type": "string",
+            "description": "Website",
+            "examples": [
+              "string"
+            ]
+          }
+        },
+        "required": [
+          "isbn",
+          "title",
+          "subTitle",
+          "author",
+          "publish_date",
+          "publisher",
+          "pages",
+          "description",
+          "website"
+        ]
+      }
+    }
+  },
+  "required": [
+    "userId",
+    "username",
+    "books"
+  ]
+}
