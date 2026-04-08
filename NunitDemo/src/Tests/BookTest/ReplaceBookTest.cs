@@ -59,7 +59,10 @@ public class ReplaceBookTest : BaseTest
     [TearDown]
     public async Task Teardown()
     {
-        var body = new DeleteAndReplaceBookModel{isbn = _isbn, userId = UserId};
-        await BookService.DeleteBookFromCollection(body: body, token: Token);
+        if (!string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(_isbn))
+        {
+            var body = new DeleteAndReplaceBookModel{isbn = _isbn, userId = UserId};
+            await BookService.DeleteBookFromCollection(body: body, token: Token);        
+        }
     }
 }

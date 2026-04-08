@@ -1,5 +1,5 @@
 
-public class BookModel
+public class GetBookModel
 {
     public string? isbn { get; set; }
     public string? title { get; set; }
@@ -12,9 +12,15 @@ public class BookModel
     public string? website { get; set; }
 }
 
-public class CollectionOfIsbns
+public class CollectionOfIsbnsModel
 {
     public string? isbn { get; set; }
+}
+
+public class AddBooksRequestModel   
+{ 
+    public string? userId { get; set; }
+    public List<CollectionOfIsbnsModel>? collectionOfIsbns { get; set; }
 }
 
 public class DeleteAndReplaceBookModel

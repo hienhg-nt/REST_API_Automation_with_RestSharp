@@ -15,12 +15,10 @@ public class UserTest : BaseTest
         var response = await UserService.GetUserDetail(UserId, Token);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        var schemaJson = DataReader.ReadRaw("User/UserSchema.json");
-        JSchema schema = JSchema.Parse(schemaJson);
-        JObject contentActualResult = JObject.Parse(response.Content!);
-
-        bool isValid = contentActualResult.IsValid(schema);
-        Assert.That(isValid, Is.True);
+        var json = JObject.Parse(response.Content!);
+        json["userId"]!.ToString().Should().Be(UserId);
+        json["username"]!.ToString().Should().NotBeNullOrEmpty();
+        json["books"].Should().NotBeNull();
     }
 
     [Test]

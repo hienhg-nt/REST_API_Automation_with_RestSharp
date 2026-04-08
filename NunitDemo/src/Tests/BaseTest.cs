@@ -8,9 +8,9 @@ public abstract class BaseTest
 {
     protected UserService UserService;
     protected BookService BookService;
-    protected static string UserId;
-    protected string Token;
-    
+    protected string UserId = string.Empty;
+    protected string Token = string.Empty;
+
     [OneTimeSetUp]
     public async Task GlobalSetup()   
     {
@@ -20,12 +20,12 @@ public abstract class BaseTest
         UserService = new UserService();
         BookService = new BookService();
 
-        var response = await UserService.CreateNewAccount<UserModel>("User/UserData.json", "ValidUser");
+        var response = await UserService.CreateNewAccount<CreateUserRequestModel>("User/UserData.json", "ValidUser");
         var content = response.Content;
         var json = JObject.Parse(content!);
         UserId = json["userID"]!.ToString();
 
-        response = await UserService.GenerateTokenForAccount<UserModel>("User/UserData.json", "ValidUser");
+        response = await UserService.GenerateTokenForAccount<CreateUserRequestModel>("User/UserData.json", "ValidUser");
         content = response.Content;
         json = JObject.Parse(content!);
         Token = json["token"]!.ToString();
@@ -44,7 +44,16 @@ public abstract class BaseTest
     [OneTimeTearDown]
     public async Task GlobalTeardown()
     {
-        await UserService.DeleteUser<UserModel>(UserId, Token);
+        if (!string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(Token))
+        {
+            await UserService.DeleteUser<GetUserResponseModel>(UserId, Token);
+        }
     }
+
+    // protected string UserId = string.Empty;   
+    // [OneTimeTearDown]public async Task GlobalTeardown(){    
+    //     if (!string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(Token))        
+    //     await UserService.DeleteUser<UserModel>(UserId, Token);}
+
 
 }

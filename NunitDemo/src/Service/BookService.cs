@@ -53,11 +53,11 @@ public class BookService : BaseService
 
     public async Task<(string isbn, HttpStatusCode statusCode)> AddBookSuccessfullyAndGetIsbn(string isbn, string userId, string token)
     {
-        var body = new UserModel{
+        var body = new AddBooksRequestModel{
             userId = userId,
-            collectionOfIsbns = new List<CollectionOfIsbns> 
+            collectionOfIsbns = new List<CollectionOfIsbnsModel> 
             {
-                new CollectionOfIsbns { isbn = isbn }
+                new CollectionOfIsbnsModel { isbn = isbn }
             }
         };
         
