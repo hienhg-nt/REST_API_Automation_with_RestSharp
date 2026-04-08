@@ -31,16 +31,6 @@ public abstract class BaseTest
         Token = json["token"]!.ToString();
     }
 
-    // [SetUp]
-    // public void Setup()
-    // {
-    // }
-
-    // [TearDown]
-    // public void TearDown()
-    // {
-    // }
-
     [OneTimeTearDown]
     public async Task GlobalTeardown()
     {
@@ -49,11 +39,4 @@ public abstract class BaseTest
             await UserService.DeleteUser<GetUserResponseModel>(UserId, Token);
         }
     }
-
-    // protected string UserId = string.Empty;   
-    // [OneTimeTearDown]public async Task GlobalTeardown(){    
-    //     if (!string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(Token))        
-    //     await UserService.DeleteUser<UserModel>(UserId, Token);}
-
-
 }
