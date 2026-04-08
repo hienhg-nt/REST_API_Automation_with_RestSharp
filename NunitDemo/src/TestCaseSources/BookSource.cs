@@ -4,6 +4,15 @@ namespace TestCaseSources
 {
     public static class BookTestCases
     {
+        public static IEnumerable<TestCaseData> AddBookSuccessfully
+        {
+            get
+            {
+                yield return new TestCaseData("9781449325862")
+                    .SetName("Add book successfully with valid data: isbn = 9781449325862");
+            }
+        }
+
         public static IEnumerable<TestCaseData> AddABookUnsuccessfullyWithInvalidData
         {
             get
@@ -58,6 +67,15 @@ namespace TestCaseSources
 
                 yield return new TestCaseData("default", "default", "9781449325865", "9781449337711")
                     .SetName("Negative Case Replace book: token = valid; userID = valid; new isbn = invalid; old isbn = valid");
+            }
+        }
+
+        public static IEnumerable<TestCaseData> AddABookUnsuccessfullyWithAddedBook
+        {
+            get
+            {
+                yield return new TestCaseData("9781449325862")
+                    .SetName("Add book unsuccessfully with added book: isbn = 9781449325862");
             }
         }
     }

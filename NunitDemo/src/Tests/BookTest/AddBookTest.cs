@@ -12,7 +12,10 @@ public class AddBookTest : BaseTest
 {
     private string? _isbn;
 
-    [TestCase("9781449325862")]
+    [Test]
+    [TestCaseSource(
+        typeof(BookTestCases),
+        nameof(BookTestCases.AddBookSuccessfully))]
     public async Task AddABookSuccessfullyWithValidData(string isbn)
     {
         var result = await BookService.AddBookSuccessfullyAndGetIsbn(isbn, UserId, Token);
@@ -27,18 +30,21 @@ public class AddBookTest : BaseTest
         nameof(BookTestCases.AddABookUnsuccessfullyWithInvalidData))]
     public async Task AddABookUnsuccessfullyWithInvalidData(string token, string userId, string isbn)
     {
-        var body = DataReader.Data<UserModel>("Book/AddBookData.json", "AddBookWithInvalidData");
+        var body = DataReader.Data<AddBooksRequestModel>("Book/AddBookData.json", "AddBookWithInvalidData");
         userId = (userId.ToLower() == "default") ? UserId : userId;
         token = (token.ToLower() == "default") ? Token : token;
         var response = await BookService.AddBookToCollection(body: body!, token: token, userId: userId, isbn: isbn);
         response.StatusCode.Should().BeOneOf(HttpStatusCode.Unauthorized, HttpStatusCode.BadRequest);
     }
 
-    [TestCase("9781449325862")]
+    [Test]
+    [TestCaseSource(
+        typeof(BookTestCases),
+        nameof(BookTestCases.AddABookUnsuccessfullyWithAddedBook))]
     public async Task AddABookUnsuccessfullyWithAddedBook(string isbn)
     {
         var addedBook = await BookService.AddBookSuccessfullyAndGetIsbn(isbn, UserId, Token);
-        var body = DataReader.Data<UserModel>("Book/AddBookData.json", "AddBookWithInvalidData");
+        var body = DataReader.Data<AddBooksRequestModel>("Book/AddBookData.json", "AddBookWithInvalidData");
         var response = await BookService.AddBookToCollection(body: body!, token: Token, userId: UserId, isbn: addedBook.isbn);
         response.StatusCode.Should().BeOneOf(HttpStatusCode.BadRequest);
     }
@@ -46,7 +52,10 @@ public class AddBookTest : BaseTest
     [TearDown]
     public async Task Teardown()
     {
-        var body = new DeleteAndReplaceBookModel{isbn = _isbn, userId = UserId};
-        await BookService.DeleteBookFromCollection(body: body, token: Token);
+        if (!string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(_isbn))
+        {
+            var body = new DeleteAndReplaceBookModel{isbn = _isbn, userId = UserId};
+            await BookService.DeleteBookFromCollection(body: body, token: Token);        
+        }
     }
 }
