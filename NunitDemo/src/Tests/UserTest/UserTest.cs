@@ -1,9 +1,7 @@
 using System.Net;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 using Service;
-using Helper.DataReader;
 using TestCaseSources;
 
 namespace Tests.UserTest;

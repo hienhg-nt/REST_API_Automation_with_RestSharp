@@ -1,8 +1,5 @@
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using FluentAssertions;
-using Newtonsoft.Json.Linq;
-using RestSharp;
 using Service;
 using Helper.DataReader;
 using TestCaseSources;
